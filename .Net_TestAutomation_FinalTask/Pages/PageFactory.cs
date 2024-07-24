@@ -3,7 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 
-namespace NetAutomation_WebDriverTask3;
+namespace TA_FinalTask;
 
 public class PageFactory 
 {

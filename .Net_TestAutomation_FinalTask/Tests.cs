@@ -1,6 +1,6 @@
 [assembly: Parallelize(Workers = 0, Scope = ExecutionScope.MethodLevel)]
 
-namespace NetAutomation_WebDriverTask3;
+namespace TA_FinalTask;
 
 using FluentAssertions;
 using NLog;

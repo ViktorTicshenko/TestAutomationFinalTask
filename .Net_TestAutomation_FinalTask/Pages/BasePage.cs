@@ -2,65 +2,64 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
-namespace NetAutomation_WebDriverTask3
+namespace TA_FinalTask;
+
+public class BasePage(IWebDriver driver)
 {
-    public class BasePage(IWebDriver driver)
+    protected readonly IWebDriver driver = driver;
+    protected readonly string url = "https://www.saucedemo.com";
+
+    public void NavigateToPage()
     {
-        protected readonly IWebDriver driver = driver;
-        protected readonly string url = "https://www.saucedemo.com";
+        if(url.Length == 0)
+            throw new ArgumentException("Url cannot be empty!");
+        
+        driver.Navigate().GoToUrl(url);
+    }
 
-        public void NavigateToPage()
-        {
-            if(url.Length == 0)
-                throw new ArgumentException("Url cannot be empty!");
-            
-            driver.Navigate().GoToUrl(url);
-        }
+    public void ScrollDown(int byAmount = -1)
+    {
+        var windowSize = driver.Manage().Window.Size;
 
-        public void ScrollDown(int byAmount = -1)
-        {
-            var windowSize = driver.Manage().Window.Size;
+        new Actions(driver)
+            .ScrollByAmount(0, (byAmount == -1) ? windowSize.Height : byAmount)
+            .Perform();
+    }
 
-            new Actions(driver)
-                .ScrollByAmount(0, (byAmount == -1) ? windowSize.Height : byAmount)
-                .Perform();
-        }
+    protected IWebElement FindDisplayedElement(By locator, int milliSecondsToWait = 2000)
+    {
+        IWebElement? foundElement = null;
+        Exception lastException = new();
 
-        protected IWebElement FindDisplayedElement(By locator, int milliSecondsToWait = 2000)
-        {
-            IWebElement? foundElement = null;
-            Exception lastException = new();
-
-            return new WebDriverWait(driver, TimeSpan.FromMilliseconds(milliSecondsToWait)).Until
-            (
-                driver => 
-                { 
-                    try
+        return new WebDriverWait(driver, TimeSpan.FromMilliseconds(milliSecondsToWait)).Until
+        (
+            driver => 
+            { 
+                try
+                {
+                    if(driver.FindElement(locator) is var elem && elem.Displayed)
                     {
-                        if(driver.FindElement(locator) is var elem && elem.Displayed)
-                        {
-                            foundElement = elem;
-                            return true;
-                        }
-                        return false;
+                        foundElement = elem;
+                        return true;
                     }
-                    catch (Exception ex)
-                    {
-                        lastException = ex;
-                        return false;
-                    }
+                    return false;
                 }
-            ) ? foundElement! : throw lastException;
-        }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    return false;
+                }
+            }
+        ) ? foundElement! : throw lastException;
+    }
 
-        protected bool SwitchToNextTab()
-        {
-            var windowHandles = new List<string>(driver.WindowHandles);
-            if(windowHandles.Count <= 1)
-                return false;
+    protected bool SwitchToNextTab()
+    {
+        var windowHandles = new List<string>(driver.WindowHandles);
+        if(windowHandles.Count <= 1)
+            return false;
 
-            driver.SwitchTo().Window(windowHandles[1]);
-            return true;
-        }
+        driver.SwitchTo().Window(windowHandles[1]);
+        return true;
     }
 }
