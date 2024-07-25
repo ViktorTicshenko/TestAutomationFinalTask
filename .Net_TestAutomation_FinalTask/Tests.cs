@@ -9,7 +9,7 @@ public class LoginPageTests : BaseTest
     [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Username is required")]
     public void UC_1_Test_Login_Form_with_Empty_Credentials(string userName, string userPassword, string errorString)
     {
-        TestLogger.LOG
+        logger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
@@ -38,7 +38,7 @@ public class LoginPageTests : BaseTest
     [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Password is required")]
     public void UC_2_Test_Login_Form_with_Credentials_by_Passing_Username(string userName, string userPassword, string errorString)
     {
-        TestLogger.LOG
+        logger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
@@ -71,7 +71,7 @@ public class LoginPageTests : BaseTest
     [DataRow("visual_user"    , "secret_sauce")]
     public void UC_3_Test_Login_Form_with_Valid_Credentials(string userName, string userPassword)
     {
-        TestLogger.LOG
+        logger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
