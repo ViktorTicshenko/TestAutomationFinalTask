@@ -3,7 +3,7 @@ namespace TA_FinalTask;
 using FluentAssertions;
 
 [TestClass]
-public class LoginPageTests : BaseTest
+public partial class LoginPageTests : BaseTest
 {
     [TestMethod]
     [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Username is required")]
@@ -63,12 +63,7 @@ public class LoginPageTests : BaseTest
     }
 
     [TestMethod]
-    [DataRow("standard_user"  , "secret_sauce")]
-    [DataRow("locked_out_user", "secret_sauce")]
-    [DataRow("problem_user"   , "secret_sauce")]
-    [DataRow("problem_user"   , "secret_sauce")]
-    [DataRow("error_user"     , "secret_sauce")]
-    [DataRow("visual_user"    , "secret_sauce")]
+    [DynamicData(nameof(UserTestData))]
     public void UC_3_Test_Login_Form_with_Valid_Credentials(string userName, string userPassword)
     {
         logger.LOG
