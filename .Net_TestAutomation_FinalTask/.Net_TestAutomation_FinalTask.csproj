@@ -8,6 +8,11 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <Configurations>CHROME;EDGE</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EDGE|AnyCPU'">
+    <DefineConstants>$(DefineConstants);EDGE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

@@ -11,7 +11,8 @@ public class DriverFactory
     {
         FIREFOX,
         CHROME,
-        EDGE
+        EDGE,
+        NONE
     };
 
     private static readonly ThreadLocal<IWebDriver?> _driver = new();

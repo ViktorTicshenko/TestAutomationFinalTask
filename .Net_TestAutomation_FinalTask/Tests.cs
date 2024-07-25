@@ -1,32 +1,15 @@
-[assembly: Parallelize(Workers = 0, Scope = ExecutionScope.MethodLevel)]
-
 namespace TA_FinalTask;
 
 using FluentAssertions;
-using NLog;
-
-using BrowserType = DriverFactory.BrowserType;
 
 [TestClass]
-public class LoginPageTests
+public class LoginPageTests : BaseTest
 {
-    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-#pragma warning disable CS8618
-    public TestContext TestContext { get; set; }
-#pragma warning restore CS8618 
-
-    [TestInitialize]
-    public void SetUp()
-    {
-        logger.Info($"Prepare test {TestContext.TestName}");
-    }
-
     [TestMethod]
-    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Username is required", BrowserType.CHROME)]
-    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Username is required", BrowserType.EDGE)]
-    public void UC_1_Test_Login_Form_with_Empty_Credentials(string userName, string userPassword, string errorString, BrowserType browserType)
+    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Username is required")]
+    public void UC_1_Test_Login_Form_with_Empty_Credentials(string userName, string userPassword, string errorString)
     {
-        logger.Info
+        TestLogger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
@@ -52,11 +35,10 @@ public class LoginPageTests
     }
 
     [TestMethod]
-    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Password is required", BrowserType.CHROME)]
-    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Password is required", BrowserType.EDGE)]
-    public void UC_2_Test_Login_Form_with_Credentials_by_Passing_Username(string userName, string userPassword, string errorString, BrowserType browserType)
+    [DataRow("TestUserName", "TestUserPassword", "Epic sadface: Password is required")]
+    public void UC_2_Test_Login_Form_with_Credentials_by_Passing_Username(string userName, string userPassword, string errorString)
     {
-        logger.Info
+        TestLogger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
@@ -81,22 +63,15 @@ public class LoginPageTests
     }
 
     [TestMethod]
-    [DataRow("standard_user"  , "secret_sauce", BrowserType.CHROME)]
-    [DataRow("locked_out_user", "secret_sauce", BrowserType.CHROME)]
-    [DataRow("problem_user"   , "secret_sauce", BrowserType.CHROME)]
-    [DataRow("problem_user"   , "secret_sauce", BrowserType.CHROME)]
-    [DataRow("error_user"     , "secret_sauce", BrowserType.CHROME)]
-    [DataRow("visual_user"    , "secret_sauce", BrowserType.CHROME)]
-
-    [DataRow("standard_user"  , "secret_sauce", BrowserType.EDGE)]
-    [DataRow("locked_out_user", "secret_sauce", BrowserType.EDGE)]
-    [DataRow("problem_user"   , "secret_sauce", BrowserType.EDGE)]
-    [DataRow("problem_user"   , "secret_sauce", BrowserType.EDGE)]
-    [DataRow("error_user"     , "secret_sauce", BrowserType.EDGE)]
-    [DataRow("visual_user"    , "secret_sauce", BrowserType.EDGE)]
-    public void UC_3_Test_Login_Form_with_Valid_Credentials(string userName, string userPassword, BrowserType browserType)
+    [DataRow("standard_user"  , "secret_sauce")]
+    [DataRow("locked_out_user", "secret_sauce")]
+    [DataRow("problem_user"   , "secret_sauce")]
+    [DataRow("problem_user"   , "secret_sauce")]
+    [DataRow("error_user"     , "secret_sauce")]
+    [DataRow("visual_user"    , "secret_sauce")]
+    public void UC_3_Test_Login_Form_with_Valid_Credentials(string userName, string userPassword)
     {
-        logger.Info
+        TestLogger.LOG
         (
             @$"
             Running test {TestContext.TestName} with arguments: 
@@ -116,12 +91,5 @@ public class LoginPageTests
         var shoppingPage = PageFactory.Create<ShoppingPage>(DriverFactory.GetDriver(browserType));
         shoppingPage.FindHeader(); //Only exists if the user has been able to log in
         shoppingPage.FindShoppingCartIcon();
-    }
-
-    [TestCleanup]
-    public void TearDown()
-    {
-        DriverFactory.CloseDriver();
-        logger.Info($"Done running test {TestContext.TestName}");
     }
 }
