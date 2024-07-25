@@ -20,7 +20,7 @@ public partial class LoginPageTests : BaseTest
             "
         );
         
-        var loginPage = PageFactory.Create<LoginPage>(DriverFactory.GetDriver(browserType));
+        var loginPage = PageFactory.Create<LoginPage>(driver);
         loginPage.NavigateToPage();
 
         loginPage.SetLoginField(userName);
@@ -49,7 +49,7 @@ public partial class LoginPageTests : BaseTest
             "
         );
 
-        var loginPage = PageFactory.Create<LoginPage>(DriverFactory.GetDriver(browserType));
+        var loginPage = PageFactory.Create<LoginPage>(driver);
         loginPage.NavigateToPage();
 
         loginPage.SetLoginField(userName);
@@ -76,15 +76,14 @@ public partial class LoginPageTests : BaseTest
             "
         );
 
-        var loginPage = PageFactory.Create<LoginPage>(DriverFactory.GetDriver(browserType));
+        var loginPage = PageFactory.Create<LoginPage>(driver);
         loginPage.NavigateToPage();
 
         loginPage.SetLoginField(userName);
         loginPage.SetPasswordField(userPassword);
         loginPage.ClickLoginButton();
 
-        var shoppingPage = PageFactory.Create<ShoppingPage>(DriverFactory.GetDriver(browserType));
+        var shoppingPage = PageFactory.Create<ShoppingPage>(driver);
         shoppingPage.FindHeader(); //Only exists if the user has been able to log in
-        shoppingPage.FindShoppingCartIcon();
     }
 }

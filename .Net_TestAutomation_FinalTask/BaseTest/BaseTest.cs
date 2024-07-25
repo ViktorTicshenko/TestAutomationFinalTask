@@ -2,6 +2,7 @@
 
 namespace TA_FinalTask;
 
+using OpenQA.Selenium;
 using BrowserType = DriverFactory.BrowserType;
 
 [TestClass]
@@ -18,12 +19,14 @@ public class BaseTest
 
 #pragma warning disable CS8618
     public TestContext TestContext { get; set; }
+    protected IWebDriver driver;
 #pragma warning restore CS8618 
     protected static readonly ITestLogger logger = new TestLogger();
 
     [TestInitialize]
     public void SetUp()
     {
+        driver = DriverFactory.GetDriver(browserType);
         logger.LOG($"Prepare test {TestContext.TestName}");
     }
 
