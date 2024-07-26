@@ -6,7 +6,7 @@ using OpenQA.Selenium;
 using BrowserType = DriverFactory.BrowserType;
 
 [TestClass]
-public class BaseTest
+public abstract class BaseTest
 {
     protected static readonly BrowserType browserType =
 #if CHROME

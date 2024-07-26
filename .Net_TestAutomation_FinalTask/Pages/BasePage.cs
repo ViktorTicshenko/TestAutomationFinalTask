@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TA_FinalTask;
 
-public class BasePage(IWebDriver driver)
+public abstract class BasePage(IWebDriver driver)
 {
     protected readonly IWebDriver driver = driver;
     protected readonly string url = "https://www.saucedemo.com";
