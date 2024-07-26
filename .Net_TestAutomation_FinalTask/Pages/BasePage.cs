@@ -7,9 +7,8 @@ namespace TA_FinalTask;
 public abstract class BasePage(IWebDriver driver)
 {
     protected readonly IWebDriver driver = driver;
-    protected readonly string url = "https://www.saucedemo.com";
 
-    public void NavigateToPage()
+    public void NavigateTo(string url)
     {
         if(url.Length == 0)
             throw new ArgumentException("Url cannot be empty!");

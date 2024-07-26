@@ -5,7 +5,6 @@
 namespace TA_FinalTask;
 
 using FluentAssertions;
-using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
 using BrowserType = DriverFactory.BrowserType;
@@ -13,6 +12,7 @@ using BrowserType = DriverFactory.BrowserType;
 [Binding]
 public class LoginSteps
 {
+    protected static readonly string Url = "https://www.saucedemo.com";
     protected static readonly BrowserType browserType =
 #if CHROME
     BrowserType.CHROME;
@@ -56,7 +56,7 @@ public class LoginSteps
     [Given(@"I am on the login page")]
     public void GivenIAmOnTheLoginPage()
     {
-        loginPage.NavigateToPage();
+        loginPage.NavigateTo(Url);
     }
 
     [When(@"I enter the username ""(.*)""")]
