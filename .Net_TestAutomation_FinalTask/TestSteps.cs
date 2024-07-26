@@ -23,8 +23,8 @@ public class LoginSteps
     private ShoppingPage shoppingPage;
 
     protected static readonly ILogger logger = ServiceLocator.GetService<ILoggerFactory>().CreateLogger();
-    protected IDriverFactory driverFactory = ServiceLocator.GetService<IDriverFactory>();
-    protected IPageFactory pageFactory = ServiceLocator.GetService<IPageFactory>();
+    protected readonly IDriverFactory driverFactory = ServiceLocator.GetService<IDriverFactory>();
+    protected readonly IPageFactory pageFactory = ServiceLocator.GetService<IPageFactory>();
 
     private readonly ScenarioContext _scenarioContext;
 
