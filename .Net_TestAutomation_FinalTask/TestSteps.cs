@@ -25,7 +25,7 @@ public class LoginSteps
 #pragma warning disable CS8618
     private LoginPage loginPage;
     private ShoppingPage shoppingPage;
-    protected static readonly ITestLogger logger = new TestLogger();
+    protected static readonly ILogger logger = new LoggerFactory().CreateLogger();
 
     private readonly ScenarioContext _scenarioContext;
 
