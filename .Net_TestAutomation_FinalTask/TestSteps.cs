@@ -3,7 +3,7 @@ namespace TA_FinalTask;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
-using BrowserType = DriverFactory.BrowserType;
+using BrowserType = IDriverFactory.BrowserType;
 
 [Binding]
 public class LoginSteps
@@ -21,7 +21,10 @@ public class LoginSteps
 #pragma warning disable CS8618
     private LoginPage loginPage;
     private ShoppingPage shoppingPage;
-    protected static readonly ILogger logger = new LoggerFactory().CreateLogger();
+
+    protected static readonly ILogger logger = ServiceLocator.GetService<ILoggerFactory>().CreateLogger();
+    protected IDriverFactory driverFactory = ServiceLocator.GetService<IDriverFactory>();
+    protected IPageFactory pageFactory = ServiceLocator.GetService<IPageFactory>();
 
     private readonly ScenarioContext _scenarioContext;
 
@@ -34,9 +37,10 @@ public class LoginSteps
     [BeforeScenario]
     public void BeforeScenario(TestContext testContext)
     {
-        var driver = DriverFactory.GetDriver(browserType);
-        loginPage = PageFactory.Create<LoginPage>(driver);
-        shoppingPage = PageFactory.Create<ShoppingPage>(driver);
+        var driver = driverFactory.GetDriver(browserType);
+
+        loginPage = pageFactory.Create<LoginPage>(driver);
+        shoppingPage = pageFactory.Create<ShoppingPage>(driver);
 
         logger.LOG($"Prepare test {testContext.TestName}, browser: {browserType}");
     }
@@ -44,7 +48,7 @@ public class LoginSteps
     [AfterScenario]
     public void AfterScenario(TestContext testContext)
     {
-        DriverFactory.CloseDriver();
+        driverFactory.CloseDriver();
 
         logger.LOG($"Done running test {testContext.TestName}, browser: {browserType}. Result: {testContext.CurrentTestOutcome}. ScenarioTitle: {_scenarioContext.ScenarioInfo.Title}");
     }

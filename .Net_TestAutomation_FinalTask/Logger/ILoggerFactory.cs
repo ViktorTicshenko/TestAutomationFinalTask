@@ -8,5 +8,5 @@ public interface ILoggerFactory
         CONSOLE,
         NONE
     };
-    ILogger CreateLogger(LoggerType type);
+    ILogger CreateLogger(LoggerType type = ILoggerFactory.LoggerType.FILE);
 }

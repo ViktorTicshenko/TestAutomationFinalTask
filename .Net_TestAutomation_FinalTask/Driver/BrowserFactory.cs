@@ -5,26 +5,16 @@ using OpenQA.Selenium.Firefox;
 
 namespace TA_FinalTask;
 
-public class DriverFactory 
+public class DriverFactory : IDriverFactory
 {
-    public enum BrowserType
-    {
-        FIREFOX,
-        CHROME,
-        EDGE,
-        NONE
-    };
-
-    private static readonly ThreadLocal<IWebDriver?> _driver = new();
-    private DriverFactory(){}
-
-    public static IWebDriver GetDriver(BrowserType browserType)
+    protected static readonly ThreadLocal<IWebDriver?> _driver = new();
+    public IWebDriver GetDriver(IDriverFactory.BrowserType browserType)
     {
         if (_driver.Value == null)
         {
             switch (browserType)
             {
-                case BrowserType.CHROME: 
+                case IDriverFactory.BrowserType.CHROME: 
                 {
                     var options = new ChromeOptions();
                     options.AddArgument("--start-maximized");
@@ -33,7 +23,7 @@ public class DriverFactory
 
                     break;
                 }
-                case BrowserType.EDGE: 
+                case IDriverFactory.BrowserType.EDGE: 
                 {
                     var options = new EdgeOptions();
                     options.AddArgument("--start-maximized");
@@ -42,7 +32,7 @@ public class DriverFactory
 
                     break;
                 }
-                case BrowserType.FIREFOX: 
+                case IDriverFactory.BrowserType.FIREFOX: 
                 {
                     _driver.Value = new FirefoxDriver();
                     _driver.Value.Manage().Window.Maximize();
@@ -59,7 +49,7 @@ public class DriverFactory
         return _driver.Value;
     }
 
-    public static void CloseDriver()
+    public void CloseDriver()
     {
         _driver.Value?.Dispose();
         _driver.Value = null;

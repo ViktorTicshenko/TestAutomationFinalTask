@@ -1,15 +1,10 @@
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
 
 namespace TA_FinalTask;
 
-public class PageFactory 
+public class PageFactory : IPageFactory
 {
-    private PageFactory(){}
-
-    public static T Create<T>(IWebDriver driver) where T : BasePage
+    public T Create<T>(IWebDriver driver) where T : BasePage
     {
         ArgumentNullException.ThrowIfNull(driver);
 
