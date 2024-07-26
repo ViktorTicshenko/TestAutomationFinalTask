@@ -25,7 +25,6 @@ public class LoginSteps
 #pragma warning disable CS8618
     private LoginPage loginPage;
     private ShoppingPage shoppingPage;
-#pragma warning restore CS8618
     protected static readonly ITestLogger logger = new TestLogger();
 
     private readonly ScenarioContext _scenarioContext;
@@ -34,6 +33,7 @@ public class LoginSteps
     {
         _scenarioContext = scenarioContext;
     }
+#pragma warning restore CS8618
 
     [BeforeScenario]
     public void BeforeScenario(TestContext testContext)
