@@ -34,6 +34,6 @@ public abstract class BaseTest
     public void TearDown()
     {
         DriverFactory.CloseDriver();
-        logger.LOG($"Done running test {TestContext.TestName}");
+        logger.LOG($"Done running test {TestContext.TestName}, browser: {browserType}. Result: {TestContext.CurrentTestOutcome}");
     }
 }
