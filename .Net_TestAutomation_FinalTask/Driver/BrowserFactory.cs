@@ -7,35 +7,35 @@ namespace TA_FinalTask;
 
 public class DriverFactory : IDriverFactory
 {
-    protected static readonly ThreadLocal<IWebDriver?> _driver = new();
-    public IWebDriver GetDriver(IDriverFactory.BrowserType browserType)
+    protected static readonly ThreadLocal<IWebDriver?> Driver = new();
+    public IWebDriver GetDriver(BrowserType browserType)
     {
-        if (_driver.Value == null)
+        if (Driver.Value == null)
         {
             switch (browserType)
             {
-                case IDriverFactory.BrowserType.CHROME: 
+                case BrowserType.CHROME: 
                 {
                     var options = new ChromeOptions();
                     options.AddArgument("--start-maximized");
 
-                    _driver.Value = new ChromeDriver(options);
+                    Driver.Value = new ChromeDriver(options);
 
                     break;
                 }
-                case IDriverFactory.BrowserType.EDGE: 
+                case BrowserType.EDGE: 
                 {
                     var options = new EdgeOptions();
                     options.AddArgument("--start-maximized");
 
-                    _driver.Value = new EdgeDriver(options);
+                    Driver.Value = new EdgeDriver(options);
 
                     break;
                 }
-                case IDriverFactory.BrowserType.FIREFOX: 
+                case BrowserType.FIREFOX: 
                 {
-                    _driver.Value = new FirefoxDriver();
-                    _driver.Value.Manage().Window.Maximize();
+                    Driver.Value = new FirefoxDriver();
+                    Driver.Value.Manage().Window.Maximize();
 
                     break;
                 }
@@ -46,12 +46,12 @@ public class DriverFactory : IDriverFactory
             }
         }
 
-        return _driver.Value;
+        return Driver.Value;
     }
 
     public void CloseDriver()
     {
-        _driver.Value?.Dispose();
-        _driver.Value = null;
+        Driver.Value?.Dispose();
+        Driver.Value = null;
     }
 }
